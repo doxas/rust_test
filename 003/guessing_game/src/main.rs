@@ -5,26 +5,37 @@ use std::io;
 use std::cmp::Ordering;
 use rand::Rng;
 
-fn main(){
+fn main() {
     println!("Guess tha number!");
-    println!("Please input your guess.");
 
     let secret = rand::thread_rng().gen_range(0, 101);
 
-    println!("The secret number is: {}", secret);
+    // println!("The secret number is: {}", secret);
 
-    let mut guess = String::new();
+    loop {
+        println!("Please input your guess. (number of 0 to 100)");
+        let mut guess = String::new();
 
-    io::stdin().read_line(&mut guess).expect("Failed to read line.");
+        io::stdin().read_line(&mut guess).expect("Failed to read line.");
 
-    let guess: u32 = guess.trim().parse().expect("Please type a number!");
+        let guess: u32 = match guess.trim().parse() {
+            Ok(number) => number,
+            Err(_)     => {
+                println!("Please type a number!");
+                continue;
+            }
+        };
 
-    println!("You guessed: {}", guess);
+        println!("You guessed: {}", guess);
 
-    match guess.cmp(&secret){
-        Ordering::Less    => println!("Too small!"),
-        Ordering::Equal   => println!("Very nice!"),
-        Ordering::Greater => println!("Too big!"),
+        match guess.cmp(&secret) {
+            Ordering::Less    => println!("Too small!"),
+            Ordering::Greater => println!("Too big!"),
+            Ordering::Equal   => {
+                println!("Very nice!");
+                break;
+            }
+        }
     }
 }
 
@@ -63,4 +74,9 @@ fn main(){
 // つまり存在を上書きして、それまでの変数の姿を影にしてしまうということなのか……キモい。
 //
 // 変数の宣言時に型を与える場合は、変数名に半角スペースのコロンの型、と書けばよい。
+//
+// match は戻り値を返すので、その戻り値に応じて switch case のように振る舞わせることができる。
+// エラーは Ok や Err などの enum 定義で返ってくる（詳細は今はまだ説明されていないのでわからん）
+//
+// loop {} で、VB の do みたいな感じに無限ループになり、break や continue が使える。
 //
