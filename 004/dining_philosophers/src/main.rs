@@ -1,4 +1,7 @@
 
+use std::thread; // use thread module
+use std::time::Duration;
+
 struct Philosopher {
     name: String
 }
@@ -10,6 +13,10 @@ impl Philosopher {
         }
     }
     fn eat(&self) {
+        println!("{} begin eating.", self.name);
+
+        thread::sleep(Duration::from_millis(1000));
+
         println!("{} is done eating.", self.name);
     }
 }
@@ -23,8 +30,14 @@ fn main() {
         Philosopher::new("fours")
     ];
 
-    for p in &phis {
-        p.eat();
+    let handles: Vec<_> = phis.into_iter().map(|p| {
+        thread::spawn(move || {
+            p.eat();
+        })
+    }).collect();
+
+    for h in handles {
+        h.join().unwrap();
     }
 }
 
@@ -50,4 +63,7 @@ fn main() {
 // 要約すると、Rust においては関数の戻り値は「式の結果」が返ることになっている。
 // Rust は式ベースの言語であり、ほとんどのものが式として記述されることから、関数はデフォルトで最後
 // に評価した式の結果を暗黙に return するようになっている、というわけ。
+//
+// Vec<_> という表記では、これがベクトルであることを宣言しつつ、その型についてはアンダースコア _ で
+// 表すことによって「明示的に」アノテーション（つまり型推論）を示している。
 //
