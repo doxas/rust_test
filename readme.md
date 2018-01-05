@@ -33,6 +33,15 @@ Cargo.lock には、package-lock.json と同じように依存関係などが出
 
 Cargo はまさに npm と同じような存在であり、Mozilla が作ってるだけあって JS のエコシステムに似ている。
 
+* cargo new hello_world --bin
+
+上記のコマンドを叩くと、ディレクトリ構成や Git の init なども含めて全部やってくれる。
+
+npm の init とも似ているが、どちらかというとプロジェクトを生成するコマンドという感じ。
+
+
+
+
 
 
 
