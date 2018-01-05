@@ -5,6 +5,8 @@ hello rust.
 
 ## install
 
+download and install VS build tool 2018.
+
 run windows binary.
 
 ## vim
