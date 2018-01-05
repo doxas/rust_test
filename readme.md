@@ -39,6 +39,18 @@ Cargo はまさに npm と同じような存在であり、Mozilla が作って�
 
 npm の init とも似ているが、どちらかというとプロジェクトを生成するコマンドという感じ。
 
+## webassembly
+
+* rustup toolchain install nightly
+* rustup update
+* rustup target add wasm32-unknown-unknown --toolchain nightly
+
+* cargo new myproject
+    - toml に crate type（クレイトタイプ）を記述する
+* cargo +nightly build --target wasm32-unknown-unknown --release
+
+
+
 
 
 

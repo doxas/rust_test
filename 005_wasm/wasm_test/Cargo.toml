@@ -1,0 +1,10 @@
+[package]
+name = "wasm_test"
+version = "0.1.0"
+authors = ["sugimoto-m <masahiro-s@digirea.com>"]
+
+[dependencies]
+
+[lib]
+path = "src/lib.rs"
+crate-type = ["cdylib"]
