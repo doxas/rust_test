@@ -20,6 +20,22 @@ autocmd BufNewFile,BufRead *.rs  let g:quickrun_config.rust = {'exec' : 'cargo r
 autocmd BufNewFile,BufRead *.crs let g:quickrun_config.rust = {'exec' : 'cargo script %s -- %a'}
 ```
 
+## command
+
+* rustc source-file -> build only
+* cargo build (need Cargo.toml) -> project debug build
+* cargo build --release -> project release build and optimize
+* cargo run -> debug build and run
+
+Cargo.toml が Makefile と package.json みたいな感じ。
+
+Cargo.lock には、package-lock.json と同じように依存関係などが出力される。
+
+Cargo はまさに npm と同じような存在であり、Mozilla が作ってるだけあって JS のエコシステムに似ている。
+
+
+
+
 
 
 
