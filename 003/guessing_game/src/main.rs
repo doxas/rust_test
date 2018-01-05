@@ -2,6 +2,7 @@
 extern crate rand;
 
 use std::io;
+use std::cmp::Ordering;
 use rand::Rng;
 
 fn main(){
@@ -17,6 +18,12 @@ fn main(){
     io::stdin().read_line(&mut guess).expect("Failed to read line.");
 
     println!("You guessed: {}", guess);
+
+    match guess.cmp(&secret){
+        Ordering::Less    => println!("Too small!"),
+        Ordering::Equal   => println!("Very nice!"),
+        Ordering::Greater => println!("Too big!"),
+    }
 }
 
 // let で変数束縛（変数束縛の意味は、パターンなどを使えるという意味合い？
@@ -46,3 +53,8 @@ fn main(){
 // rand::thread_rng() は現在のスレッドに乱数生成器をインスタンス化する。
 // インスタンスは Rng トレイトがスコープに入っているため gen_range をコールすることができる。
 // このメソッドは引数をふたつ持ち、第一引数に下限を、第二引数に上限を取る。（以上、未満）
+//
+// std.cmp() は、文字列と引数に与えられた値を比較する。
+// このとき、その値同士の関係性についての enum が Ordering であり、Less などの定義を持つ。
+//
+//
