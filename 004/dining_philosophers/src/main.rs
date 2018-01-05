@@ -1,19 +1,36 @@
 
-use std::thread; // use thread module
+use std::thread;
 use std::time::Duration;
+use std::sync::{Mutex, Arc};
+
+struct Table {
+    forks: Vec<Mutex<()>>
+}
 
 struct Philosopher {
-    name: String
+    name: String,
+    left: usize,
+    right: usize
 }
 
 impl Philosopher {
-    fn new(name: &str) -> Philosopher {
+    fn new(name: &str, left: usize, right: usize) -> Philosopher {
         Philosopher {
-            name: name.to_string()
+            name: name.to_string(),
+            left: left,
+            right: right
         }
     }
-    fn eat(&self) {
+    fn eat(&self, table: &Table) {
         println!("{} begin eating.", self.name);
+
+        let _left = table.forks[self.left].lock().unwrap();
+
+        thread::sleep(Duration::from_millis(150));
+
+        let _right = table.forks[self.right].lock().unwrap();
+
+        println!("{} is eating now.", self.name);
 
         thread::sleep(Duration::from_millis(1000));
 
@@ -22,17 +39,26 @@ impl Philosopher {
 }
 
 fn main() {
+    let table = Arc::new(Table{forks: vec![
+        Mutex::new(()),
+        Mutex::new(()),
+        Mutex::new(()),
+        Mutex::new(()),
+        Mutex::new(())
+    ]});
     let phis = vec![
-        Philosopher::new("zeros"),
-        Philosopher::new("ones"),
-        Philosopher::new("twos"),
-        Philosopher::new("threes"),
-        Philosopher::new("fours")
+        Philosopher::new("zeros", 0, 1),
+        Philosopher::new("ones", 1, 2),
+        Philosopher::new("twos", 2, 3),
+        Philosopher::new("threes", 3, 4),
+        Philosopher::new("fours", 0, 4)
     ];
 
     let handles: Vec<_> = phis.into_iter().map(|p| {
+        let table = table.clone();
+
         thread::spawn(move || {
-            p.eat();
+            p.eat(&table);
         })
     }).collect();
 
@@ -66,4 +92,9 @@ fn main() {
 //
 // Vec<_> という表記では、これがベクトルであることを宣言しつつ、その型についてはアンダースコア _ で
 // 表すことによって「明示的に」アノテーション（つまり型推論）を示している。
+//
+// Rust では宣言しているのに使われなかった変数に対してコンパイラが自動的に警告を出す。
+// これは、今回の用にスレッドをロックするための代入のみが必要な場合（ようわからん）などに、過剰に無
+// 駄な警告を発生させることになる。このような場合は、変数束縛にアンダースコアから始まる変数名を使う
+// ことで、コンパイラに対して警告が不要であることを伝えることができる。
 //
