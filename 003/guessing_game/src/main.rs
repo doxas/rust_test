@@ -17,6 +17,8 @@ fn main(){
 
     io::stdin().read_line(&mut guess).expect("Failed to read line.");
 
+    let guess: u32 = guess.trim().parse().expect("Please type a number!");
+
     println!("You guessed: {}", guess);
 
     match guess.cmp(&secret){
@@ -54,7 +56,11 @@ fn main(){
 // インスタンスは Rng トレイトがスコープに入っているため gen_range をコールすることができる。
 // このメソッドは引数をふたつ持ち、第一引数に下限を、第二引数に上限を取る。（以上、未満）
 //
-// std.cmp() は、文字列と引数に与えられた値を比較する。
+// cmp は、そのインスタンスと引数に与えられた値を比較する。
 // このとき、その値同士の関係性についての enum が Ordering であり、Less などの定義を持つ。
 //
+// guess を二度宣言しており、普通に考えるとおかしいように見えるがこれがシャドーイング。
+// つまり存在を上書きして、それまでの変数の姿を影にしてしまうということなのか……キモい。
+//
+// 変数の宣言時に型を与える場合は、変数名に半角スペースのコロンの型、と書けばよい。
 //
