@@ -1,0 +1,6 @@
+[package]
+name = "webgl_simple_math"
+version = "0.1.0"
+authors = ["doxas <eizanco@gmail.com>"]
+
+[dependencies]
