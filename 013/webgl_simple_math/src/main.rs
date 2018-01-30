@@ -14,6 +14,9 @@ fn main(){
 
     let x: Vec3 = v + w;
     println!("normalize: {} {} {}: {}", x.x, x.y, x.z, 0.0);
+
+    let y: Vec3 = Vec3::new(x.x, x.y, x.z) * Vec3::new(4.0, 5.0, 6.0);
+    println!("normalize: {} {} {}: {}", y.x, y.y, y.z, 0.0);
 }
 
 
