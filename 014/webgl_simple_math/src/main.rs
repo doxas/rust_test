@@ -15,8 +15,14 @@ fn main(){
     let x: Vec3 = v + w;
     println!("additional: {} {} {}: {}", x.x, x.y, x.z, 0.0);
 
-    let y: Vec3 = v * w;
-    println!("multiple: {} {} {}: {}", y.x, y.y, y.z, 0.0);
+    let y: Vec3 = v - w;
+    println!("subtract: {} {} {}: {}", y.x, y.y, y.z, 0.0);
+
+    let z: Vec3 = v * w;
+    println!("multiple: {} {} {}: {}", z.x, z.y, z.z, 0.0);
+
+    let a: Vec3 = v / w;
+    println!("dividing: {} {} {}: {}", a.x, a.y, a.z, 0.0);
 }
 
 
