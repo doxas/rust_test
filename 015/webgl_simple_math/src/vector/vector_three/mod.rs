@@ -22,6 +22,13 @@ impl Vec3 {
     pub fn dot(&self, vec: &Vec3) -> f64 {
         self.x * vec.x + self.y * vec.y + self.z * vec.z
     }
+    pub fn cross(&self, vec: &Vec3) -> Vec3 {
+        Vec3 {
+            x: self.y * vec.z - self.z * vec.y,
+            y: self.z * vec.x - self.x * vec.z,
+            z: self.x * vec.y - self.y * vec.x
+        }
+    }
     pub fn normalize(&mut self) -> Vec3 {
         let l: f64 = self.length();
         self.x /= l;

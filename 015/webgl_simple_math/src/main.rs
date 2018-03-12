@@ -26,6 +26,9 @@ fn main(){
 
     let b: f64 = v.dot(&w);
     println!("dot prod: {}", b);
+
+    let c: Vec3 = v.cross(&w);
+    println!("cross prod: {} {} {}", c.x, c.y, c.z);
 }
 
 
