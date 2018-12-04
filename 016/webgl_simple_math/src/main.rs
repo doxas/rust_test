@@ -3,6 +3,7 @@ extern crate webgl_simple_math;
 
 use webgl_simple_math::vector::vector_two::Vec2;
 use webgl_simple_math::vector::vector_three::Vec3;
+use webgl_simple_math::vector::vector_four::Vec4;
 
 fn out_vec2(){
     let mut v = Vec2::new(1.0, 1.0);
@@ -60,12 +61,40 @@ fn out_vec3(){
     println!("cross prod: {} {} {}", c.x, c.y, c.z);
 }
 
+fn out_vec4(){
+    let mut v = Vec4::new(1.0, 1.0, 1.0, 1.0);
+    let l: f64 = v.length();
+    println!("initial: {} {} {} {}: {}", v.x, v.y, v.z, v.w, l);
+
+    let w: Vec4 = v.normalize();
+    let l: f64 = w.length();
+    println!("normalize: {} {} {} {}: {}", w.x, w.y, w.z, w.w, l);
+
+    let x: Vec4 = v + w;
+    println!("additional: {} {} {} {}: {}", x.x, x.y, x.z, x.w, 0.0);
+
+    let y: Vec4 = v - w;
+    println!("subtract: {} {} {} {}: {}", y.x, y.y, y.z, y.w, 0.0);
+
+    let z: Vec4 = v * w;
+    println!("multiple: {} {} {} {}: {}", z.x, z.y, z.z, z.w, 0.0);
+
+    let a: Vec4 = v / w;
+    println!("dividing: {} {} {} {}: {}", a.x, a.y, a.z, a.w, 0.0);
+
+    let b: f64 = v.dot(&w);
+    println!("dot prod: {}", b);
+}
+
 fn main(){
     println!("out-vec2");
     out_vec2();
 
     println!("out-vec3");
     out_vec3();
+
+    println!("out-vec4");
+    out_vec4();
 }
 
 
