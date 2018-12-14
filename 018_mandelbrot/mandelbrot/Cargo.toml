@@ -7,3 +7,4 @@ edition = "2018"
 [dependencies]
 num = "*"
 image = "*"
+crossbeam = "0.2.8"
